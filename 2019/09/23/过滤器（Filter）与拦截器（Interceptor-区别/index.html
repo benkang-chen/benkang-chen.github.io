@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="spring,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="技术黑洞">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="过滤器（Filter）Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，简化操作；同时还可进行逻辑判断，如用户是否已经">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="过滤器（Filter）与拦截器（Interceptor )区别">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/过滤器（Filter）与拦截器（Interceptor-区别/index.html">
 <meta property="og:site_name" content="技术黑洞">
+<meta property="og:description" content="过滤器（Filter）Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，简化操作；同时还可进行逻辑判断，如用户是否已经">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-23T11:01:11.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="技术黑洞">
+<meta name="twitter:title" content="过滤器（Filter）与拦截器（Interceptor )区别">
+<meta name="twitter:description" content="过滤器（Filter）Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，简化操作；同时还可进行逻辑判断，如用户是否已经">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/过滤器（Filter）与拦截器（Interceptor-区别/">
 
 
 
 
 
-  <title>技术黑洞</title>
+  <title>过滤器（Filter）与拦截器（Interceptor )区别 | 技术黑洞</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -266,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/23/过滤器（Filter）与拦截器（Interceptor-区别/" itemprop="url">过滤器（Filter）与拦截器（Interceptor )区别</a></h1>
+          <h1 class="post-title" itemprop="name headline">过滤器（Filter）与拦截器（Interceptor )区别</h1>
         
 
         <div class="post-meta">
@@ -340,9 +342,7 @@
       
 
       
-        
-          
-            <h2 id="过滤器（Filter）"><a href="#过滤器（Filter）" class="headerlink" title="过滤器（Filter）"></a>过滤器（Filter）</h2><p>Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。<br>其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，<br>简化操作；同时还可进行逻辑判断，如用户是否已经登陆、有没有权限访问该页面等等工作。它是随你的web应用启动而启动的，只初始化一次，以后就可以拦截相关<br>请求，只有当你的web应用停止或重新部署的时候才销毁。</p>
+        <h2 id="过滤器（Filter）"><a href="#过滤器（Filter）" class="headerlink" title="过滤器（Filter）"></a>过滤器（Filter）</h2><p>Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。<br>其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，<br>简化操作；同时还可进行逻辑判断，如用户是否已经登陆、有没有权限访问该页面等等工作。它是随你的web应用启动而启动的，只初始化一次，以后就可以拦截相关<br>请求，只有当你的web应用停止或重新部署的时候才销毁。</p>
 <p>Filter可以认为是Servlet的一种“加强版”，它主要用于对用户请求进行预处理，也可以对HttpServletResponse进行后处理，是个典型的处理链。<br>Filter也可以对用户请求生成响应，这一点与Servlet相同，但实际上很少会使用Filter向用户请求生成响应。使用Filter完整的流程是：<br>Filter对用户请求进行预处理，接着将请求交给Servlet进行处理并生成响应，最后Filter再对服务器响应进行后处理。</p>
 <p><strong>Filter有如下几个用处</strong></p>
 <ul>
@@ -471,8 +471,6 @@
 <li>根据地方不同修改响应内容 Localization-Targeting the request and response to a particular locale.</li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -487,188 +485,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/20/hexo-基本使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chenbenkang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技术黑洞">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/20/hexo-基本使用/" itemprop="url">hexo 基本使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-20T16:26:34+08:00">
-                2019-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/spring/" rel="tag"># spring</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="hexo-基本使用"><a href="#hexo-基本使用" class="headerlink" title="hexo 基本使用"></a>hexo 基本使用</h2><h3 id="1-新建仓库"><a href="#1-新建仓库" class="headerlink" title="1. 新建仓库"></a>1. 新建仓库</h3><p>新建一个github 仓库，仓库名必须是<user-name>.github.io 格式，其中 <user-name> 是你 github 的昵称。</user-name></user-name></p>
-<h3 id="2-全局安装hexo"><a href="#2-全局安装hexo" class="headerlink" title="2. 全局安装hexo"></a>2. 全局安装hexo</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-初始化项目"><a href="#3-初始化项目" class="headerlink" title="3. 初始化项目"></a>3. 初始化项目</h3><p>新建目录，在新建目录下，执行 hexo init ，就会自动构建一个 hexo 项目，紧接着执行 hexo s，浏览器访问 localhost:4000 就可以看到效果。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> dir</span><br><span class="line">$ hexo init</span><br><span class="line">// 本地运行</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-部署到github"><a href="#4-部署到github" class="headerlink" title="4. 部署到github"></a>4. 部署到github</h3><p>在项目根目录下找到 _congif.yml，找到 deploy 字段并填写完整。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">&lt;你的仓库地址&gt;</span> <span class="comment"># git@github.com:benkang-chen/benkang-chen.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
-<p>推送到仓库需要安装一个额外的工具。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
-<p>部署</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-查看效果"><a href="#5-查看效果" class="headerlink" title="5. 查看效果"></a>5. 查看效果</h3><p>访问自己的github io 地址即可查看到效果。</p>
-<h3 id="6-新建文章"><a href="#6-新建文章" class="headerlink" title="6. 新建文章"></a>6. 新建文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// [layout] 为布局，可选项为 `post`、`page`、`draft`，这将决定文章所在文件路径。</span><br><span class="line">// &lt;title&gt; 为文章标题</span><br><span class="line">// 如 hexo new post 除了帅气，我还有啥！</span><br><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在 source/post找到新建文章的md文档，可添加tags， categories</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tags:</span> </span><br><span class="line"><span class="bullet">  -</span> <span class="string">hexo</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">hexo</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="7-创建标签与分类页"><a href="#7-创建标签与分类页" class="headerlink" title="7. 创建标签与分类页"></a>7. 创建标签与分类页</h3><p>创建标签页</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  hexo new page tags</span><br></pre></td></tr></table></figure>
-
-<p>配置标签页，在source下找到对应的tags目录，配置index.md文档</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">tags</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019</span><span class="bullet">-09</span><span class="bullet">-20</span> <span class="number">17</span><span class="string">:43:47</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">"tags"</span></span><br></pre></td></tr></table></figure>
-
-<p>配置分类页，在source下找到对应的categories目录，配置index.md文档</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">categories</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2019</span><span class="bullet">-09</span><span class="bullet">-20</span> <span class="number">17</span><span class="string">:44:07</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">"categories"</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="8-部署发布新文档"><a href="#8-部署发布新文档" class="headerlink" title="8. 部署发布新文档"></a>8. 部署发布新文档</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="9-删除文章"><a href="#9-删除文章" class="headerlink" title="9. 删除文章"></a>9. 删除文章</h3><p>删除文章，直接删除md文档，但要保证至少有一个md文件。然后执行 hexo clean.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/20/hexo-基本使用/" rel="next" title="hexo 基本使用">
+                <i class="fa fa-chevron-left"></i> hexo 基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -678,10 +524,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -689,6 +536,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -709,8 +560,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -770,6 +630,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器（Filter）"><span class="nav-number">1.</span> <span class="nav-text">过滤器（Filter）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器（Interceptor）"><span class="nav-number">2.</span> <span class="nav-text">拦截器（Interceptor）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器（Interceptor）和过滤器（Filter）的区别"><span class="nav-number">3.</span> <span class="nav-text">拦截器（Interceptor）和过滤器（Filter）的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器（Interceptor）和过滤器（Filter）的执行顺序"><span class="nav-number">4.</span> <span class="nav-text">拦截器（Interceptor）和过滤器（Filter）的执行顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器（Interceptor）使用"><span class="nav-number">5.</span> <span class="nav-text">拦截器（Interceptor）使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器（Filter）使用"><span class="nav-number">6.</span> <span class="nav-text">过滤器（Filter）使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器（Interceptor）和过滤器（Filter）的一些用途"><span class="nav-number">7.</span> <span class="nav-text">拦截器（Interceptor）和过滤器（Filter）的一些用途</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -910,6 +786,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
