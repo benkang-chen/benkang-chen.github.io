@@ -2,7 +2,7 @@
 
 
 
-
+  
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
@@ -38,8 +38,8 @@
 
 
 
-
-
+  
+  
   <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
@@ -129,7 +129,7 @@
 
 
   <title>SpringBoot中WebMvcConfigurer接口 | 技术黑洞</title>
-
+  
 
 
 
@@ -142,10 +142,10 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-
-
-
-
+  
+  
+    
+  
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
@@ -153,7 +153,7 @@
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
-
+    
 
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
@@ -162,9 +162,9 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-
+      
         <p class="site-subtitle"></p>
-
+      
   </div>
 
   <div class="site-nav-toggle">
@@ -177,57 +177,57 @@
 </div>
 
 <nav class="site-nav">
+  
 
-
-
+  
     <ul id="menu" class="menu">
-
-
+      
+        
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
-
+            
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-
+            
             首页
           </a>
         </li>
-
-
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
-
+            
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-
+            
             标签
           </a>
         </li>
-
-
+      
+        
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
-
+            
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-
+            
             分类
           </a>
         </li>
-
-
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
-
+            
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-
+            
             归档
           </a>
         </li>
+      
 
-
-
+      
     </ul>
+  
 
-
-
+  
 </nav>
 
 
@@ -239,21 +239,21 @@
       <div class="main-inner">
         <div class="content-wrap">
           <div id="content" class="content">
-
+            
 
   <div id="posts" class="posts-expand">
+    
 
+  
 
-
-
-
-
-
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-
-
-
+  
+  
+  
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/24/SpringBoot中WebMvcConfigurer接口/">
 
@@ -267,86 +267,86 @@
       <meta itemprop="name" content="技术黑洞">
     </span>
 
-
+    
       <header class="post-header">
 
-
-
+        
+        
           <h1 class="post-title" itemprop="name headline">SpringBoot中WebMvcConfigurer接口</h1>
-
+        
 
         <div class="post-meta">
           <span class="post-time">
-
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-
+              
                 <span class="post-meta-item-text">发表于</span>
-
+              
               <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-24T10:17:09+08:00">
                 2019-09-24
               </time>
+            
 
+            
 
-
-
-
+            
           </span>
 
-
+          
             <span class="post-category">
-
+            
               <span class="post-meta-divider">|</span>
-
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-
+              
                 <span class="post-meta-item-text">分类于</span>
-
-
+              
+              
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/spring-boot/" itemprop="url" rel="index">
                     <span itemprop="name">spring boot</span>
                   </a>
                 </span>
 
-
-
-
+                
+                
+              
             </span>
+          
 
+          
+            
+          
 
+          
+          
 
+          
 
+          
 
-
-
-
-
-
-
-
-
-
+          
 
         </div>
       </header>
+    
 
-
-
-
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
+      
+      
 
-
-
-
+      
         <h2 id="SpringBoot中WebMvcConfigurer接口"><a href="#SpringBoot中WebMvcConfigurer接口" class="headerlink" title="SpringBoot中WebMvcConfigurer接口"></a>SpringBoot中WebMvcConfigurer接口</h2><p>java8之前，WebMvcConfigurerAdapter还是WebMvcConfigurer的实现抽象类，WebMvcConfigurerAdapter没有被标注为@Deprecated被遗弃的类。</p>
 <pre><code>JDK8的一些新特性——在接口中新增了default方法和static方法，这两种方法可以有方法体。</code></pre><p>java8新特性 运用之后:</p>
-<p>  <img src="https://benkang-chen.github.io/2019/09/24/SpringBoot中WebMvcConfigurer接口/01.png" alt="对比"></p>
+<p>  <img src="/.com//01.png" alt="对比"></p>
 <p>在Spring Boot 1.5版本都是靠重写WebMvcConfigurerAdapter的方法来添加自定义拦截器，消息转换器等。SpringBoot 2.0 后，<br>该类被标记为@Deprecated。因此我们只能靠实现WebMvcConfigurer接口来实现。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.web.servlet.config.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.springframework.format.FormatterRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.converter.HttpMessageConverter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.lang.Nullable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.MessageCodesResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.Validator;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.support.HandlerMethodArgumentResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.method.support.HandlerMethodReturnValueHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerExceptionResolver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configurePathMatch</span><span class="params">(PathMatchConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureAsyncSupport</span><span class="params">(AsyncSupportConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureDefaultServletHandling</span><span class="params">(DefaultServletHandlerConfigurer configurer)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addFormatters</span><span class="params">(FormatterRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureViewResolvers</span><span class="params">(ViewResolverRegistry registry)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addArgumentResolvers</span><span class="params">(List&lt;HandlerMethodArgumentResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">addReturnValueHandlers</span><span class="params">(List&lt;HandlerMethodReturnValueHandler&gt; handlers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">extendMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">configureHandlerExceptionResolvers</span><span class="params">(List&lt;HandlerExceptionResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">extendHandlerExceptionResolvers</span><span class="params">(List&lt;HandlerExceptionResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Validator <span class="title">getValidator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> MessageCodesResolver <span class="title">getMessageCodesResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -370,82 +370,82 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(<span class="keyword">new</span> ReqInterceptor()).addPathPatterns(<span class="string">"/**"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 跨域支持</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCorsMappings</span><span class="params">(CorsRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addMapping(<span class="string">"/**"</span>)</span><br><span class="line">                .allowedOrigins(<span class="string">"*"</span>)</span><br><span class="line">                .allowCredentials(<span class="keyword">true</span>)</span><br><span class="line">                .allowedMethods(<span class="string">"GET"</span>, <span class="string">"POST"</span>, <span class="string">"PUT"</span>, <span class="string">"DELETE"</span>, <span class="string">"OPTIONS"</span>)</span><br><span class="line">                .maxAge(<span class="number">3600</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 视图控制器配置</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.addViewControllers(registry);</span><br><span class="line">        registry.addViewController(<span class="string">"/"</span>).setViewName(<span class="string">"/index"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 配置请求视图映射</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> InternalResourceViewResolver <span class="title">resourceViewResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        InternalResourceViewResolver internalResourceViewResolver = <span class="keyword">new</span> InternalResourceViewResolver();</span><br><span class="line">        <span class="comment">//请求视图文件的前缀地址</span></span><br><span class="line">        internalResourceViewResolver.setPrefix(<span class="string">"/WEB-INF/jsp/"</span>);</span><br><span class="line">        <span class="comment">//请求视图文件的后缀</span></span><br><span class="line">        internalResourceViewResolver.setSuffix(<span class="string">".jsp"</span>);</span><br><span class="line">        <span class="keyword">return</span> internalResourceViewResolver;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 视图配置</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureViewResolvers</span><span class="params">(ViewResolverRegistry registry)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">super</span>.configureViewResolvers(registry);</span><br><span class="line">        registry.viewResolver(resourceViewResolver());</span><br><span class="line">        <span class="comment">/*registry.jsp("/WEB-INF/jsp/",".jsp");*/</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 消息内容转换配置</span></span><br><span class="line"><span class="comment">    * 配置fastJson返回json转换</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> converters</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureMessageConverters</span><span class="params">(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//调用父类的配置</span></span><br><span class="line">        <span class="keyword">super</span>.configureMessageConverters(converters);</span><br><span class="line">        <span class="comment">//创建fastJson消息转换器</span></span><br><span class="line">                FastJsonHttpMessageConverter fastConverter = <span class="keyword">new</span> FastJsonHttpMessageConverter();</span><br><span class="line">        <span class="comment">//创建配置类</span></span><br><span class="line">        FastJsonConfig fastJsonConfig = <span class="keyword">new</span> FastJsonConfig();</span><br><span class="line">        <span class="comment">//修改配置返回内容的过滤</span></span><br><span class="line">        fastJsonConfig.setSerializerFeatures(</span><br><span class="line">            SerializerFeature.DisableCircularReferenceDetect,</span><br><span class="line">            SerializerFeature.WriteMapNullValue,</span><br><span class="line">            SerializerFeature.WriteNullStringAsEmpty</span><br><span class="line">        );</span><br><span class="line">        fastConverter.setFastJsonConfig(fastJsonConfig);</span><br><span class="line">        <span class="comment">//将fastjson添加到视图消息转换器列表内</span></span><br><span class="line">        converters.add(fastConverter);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <pre><code>内容转换都是针对面向接口进行编写的实现类，都必须implements HttpMessageConverter接口完成方法的实现。</code></pre>
-
+      
     </div>
+    
+    
+    
 
+    
 
+    
 
-
-
-
-
-
-
+    
 
     <footer class="post-footer">
-
+      
         <div class="post-tags">
-
+          
             <a href="/tags/spring/" rel="tag"># spring</a>
-
+          
             <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
-
+          
         </div>
+      
 
+      
+      
+      
 
-
-
-
-
-
+      
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-
+            
               <a href="/2019/09/23/过滤器（Filter）与拦截器（Interceptor-区别/" rel="next" title="过滤器（Filter）与拦截器（Interceptor )区别">
                 <i class="fa fa-chevron-left"></i> 过滤器（Filter）与拦截器（Interceptor )区别
               </a>
-
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-
+            
           </div>
         </div>
+      
 
-
-
-
+      
+      
     </footer>
   </div>
-
-
-
+  
+  
+  
   </article>
 
 
 
     <div class="post-spread">
-
+      
     </div>
   </div>
 
 
           </div>
+          
 
 
+          
 
-
-
-
+  
 
 
 
         </div>
-
-
-
+        
+          
+  
   <div class="sidebar-toggle">
     <div class="sidebar-toggle-line-wrap">
       <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
@@ -455,12 +455,12 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-
+    
     <div class="sidebar-inner">
 
+      
 
-
-
+      
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
@@ -469,93 +469,93 @@
             站点概览
           </li>
         </ul>
-
+      
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-
+            
               <p class="site-author-name" itemprop="name">Chenbenkang</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
 
-
+            
               <div class="site-state-item site-state-posts">
-
+              
                 <a href="/archives/">
-
+              
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
+            
 
-
-
-
-
+            
+              
+              
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
+            
 
-
-
-
-
+            
+              
+              
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
-
+            
 
           </nav>
 
+          
 
+          
 
+          
+          
 
+          
+          
 
-
-
-
-
-
-
-
+          
 
         </div>
       </section>
 
-
+      
       <!--noindex-->
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
+            
+              
+            
 
-
-
-
-
+            
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot中WebMvcConfigurer接口"><span class="nav-number">1.</span> <span class="nav-text">SpringBoot中WebMvcConfigurer接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置拦截器"><span class="nav-number">1.1.</span> <span class="nav-text">配置拦截器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置CORS实现跨域"><span class="nav-number">2.</span> <span class="nav-text">配置CORS实现跨域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ViewController"><span class="nav-number">3.</span> <span class="nav-text">配置ViewController</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置ViewResolver"><span class="nav-number">4.</span> <span class="nav-text">配置ViewResolver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置MessageConverter"><span class="nav-number">5.</span> <span class="nav-text">配置MessageConverter</span></a></li></ol></div>
-
+            
 
           </div>
         </section>
       <!--/noindex-->
+      
 
-
-
+      
 
     </div>
   </aside>
 
 
-
+        
       </div>
     </main>
 
@@ -567,7 +567,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Chenbenkang</span>
 
-
+  
 </div>
 
 
@@ -584,6 +584,7 @@
 
 
 
+        
 
 
 
@@ -591,23 +592,22 @@
 
 
 
-
-
+        
       </div>
     </footer>
 
-
+    
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
-
+        
       </div>
+    
 
-
-
+    
 
   </div>
 
-
+  
 
 <script type="text/javascript">
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
@@ -623,6 +623,7 @@
 
 
 
+  
 
 
 
@@ -635,39 +636,38 @@
 
 
 
-
-
-
+  
+  
     <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
 
-
-
-
+  
+  
     <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
 
-
-
-
+  
+  
     <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
 
-
-
-
+  
+  
     <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
 
-
-
-
+  
+  
     <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
 
-
-
-
+  
+  
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
 
 
-
-
+  
 
 
   <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
@@ -676,8 +676,8 @@
 
 
 
-
-
+  
+  
 
 
   <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
@@ -686,19 +686,40 @@
 
 
 
-
+  
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
 
 
 
-
+  
 
 
   <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
 
 
 
@@ -711,47 +732,26 @@
 
 
 
+  
 
 
 
 
 
+  
 
+  
 
+  
 
+  
+  
 
+  
 
+  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 </body>
 </html>
