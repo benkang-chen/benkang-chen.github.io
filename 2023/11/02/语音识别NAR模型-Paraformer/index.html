@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>语音识别NAR模型-Paraformer - 进化</title>
+
+  
+    <meta name="description" content="语音识别NAR模型-Paraformer1. 官方论文解读近年来，随着端到端语音识别的流行，基于 Transformer 结构的语音识别系统逐渐成为了主流。然而，由于 Transformer 是一种自回归模型，需要逐个生成目标文字，计算复杂度随着目标文字数量而呈线性增加，限制了其在工业生产中的应用。 针对 Transoformer 模型自回归生成文字的低计算效率的缺陷，学术界提出了非自回归模型来并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语音识别NAR模型-Paraformer">
+<meta property="og:url" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/index.html">
+<meta property="og:site_name" content="进化">
+<meta property="og:description" content="语音识别NAR模型-Paraformer1. 官方论文解读近年来，随着端到端语音识别的流行，基于 Transformer 结构的语音识别系统逐渐成为了主流。然而，由于 Transformer 是一种自回归模型，需要逐个生成目标文字，计算复杂度随着目标文字数量而呈线性增加，限制了其在工业生产中的应用。 针对 Transoformer 模型自回归生成文字的低计算效率的缺陷，学术界提出了非自回归模型来并">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/AR-NAR.png">
+<meta property="og:image" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E5%9C%A82%E4%B8%87%E5%B0%8F%E6%97%B6%E5%B7%A5%E4%B8%9A%E6%95%B0%E6%8D%AE%E4%B8%8A%E8%87%AA%E5%9B%9E%E5%BD%92%E4%B8%8E%E9%9D%9E%E8%87%AA%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E9%94%99%E8%AF%AF%E7%B1%BB%E5%9E%8B%E7%BB%9F%E8%AE%A1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/Paraformer%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/CIF%E8%BF%87%E7%A8%8B%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/GLM.png">
+<meta property="article:published_time" content="2023-11-02T07:49:52.000Z">
+<meta property="article:modified_time" content="2023-11-03T05:58:47.755Z">
+<meta property="article:author" content="Chenbenkang">
+<meta property="article:tag" content="ASR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/02/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%ABNAR%E6%A8%A1%E5%9E%8B-Paraformer/AR-NAR.png">
+  
+  
+  
+  <meta name="keywords" content="ASR">
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">进化</div></a></div>
+
+<nav class="menu dis-select"></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">语音识别NAR模型-Paraformer</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%98%E6%96%B9%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB"><span class="toc-text">1. 官方论文解读</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%90%84%E6%A8%A1%E5%9D%97%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">2. 各模块的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-text">整体流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Predictor-%E6%A8%A1%E5%9D%97"><span class="toc-text">Predictor 模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sampler%E6%A8%A1%E5%9D%97"><span class="toc-text">Sampler模块</span></a></li></ol></li></ol></div></div></widget>
+
+
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB/">语音识别</a></div><div id="post-meta">发布于&nbsp;<time datetime="2023-11-02T07:49:52.000Z">2023-11-02</time></div></div>
+
+<article class='md-text content post'>
+<h1 class="article-title"><span>语音识别NAR模型-Paraformer</span></h1>
+<h1 id="语音识别NAR模型-Paraformer"><a href="#语音识别NAR模型-Paraformer" class="headerlink" title="语音识别NAR模型-Paraformer"></a>语音识别NAR模型-Paraformer</h1><h2 id="1-官方论文解读"><a href="#1-官方论文解读" class="headerlink" title="1. 官方论文解读"></a>1. 官方论文解读</h2><p>近年来，随着端到端语音识别的流行，基于 Transformer 结构的语音识别系统逐渐成为了主流。然而，由于 Transformer 是一种自回归模型，需要逐个生成目标文字，计算复杂度随着目标文字数量而呈线性增加，限制了其在工业生产中的应用。</p>
+<p>针对 Transoformer 模型自回归生成文字的低计算效率的缺陷，学术界提出了非自回归模型来并行地输出目标文字（如图1所示）。根据生成目标文字时的迭代轮数，非自回归模型分为：多轮迭代式与单轮非自回归模型。</p>
+ <div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="语音识别NAR模型-Paraformer/AR-NAR.png" alt="自回归模型与非自回归模型生成文字过程"/></div><div class="image-meta"><span class="image-caption center">自回归模型与非自回归模型生成文字过程</span></div></div>
+
+<p> 迭代式非自回归模型，主要为 Mask-Predict 模式，训练时，将输入文字随机掩码，通过周边信息预测当前文字。解码时，采用多轮迭代的方式逐步生成目标文字；计算复杂度与迭代轮数有关（通常小于目标文字个数），相比于自回归模型，计算复杂度有所下降，但是解码需要多轮迭代的特性，限制了其在工业生产中的应用。<br>相比于多轮迭代模型，单轮非自回归模型有着更加广阔的应用前景，可以通过单次解码获取全部目标文字，计算复杂度与目标文字个数无关，进而极大的提高了解码效率。然而，由于条件独立假设，单轮非自回归模型识别效果与自回归模型有着巨大的差距，特别是在工业大数据上。<br>对于单轮非自回归模型，现有工作往往聚焦于如何更加准确的预测目标文字个数，如较为典型的 Mask CTC，采用 CTC 预测输出文字个数，尽管如此，考虑到现实应用中，语速、口音、静音以及噪声等因素的影响，如何准确的预测目标文字个数以及抽取目标文字对应的声学隐变量仍然是一个比较大的挑战。</p>
+<p>另外一方面，我们通过对比自回归模型与单轮非自回归模型在工业大数据上的错误类型（如图2所示，AR 与 vanilla NAR），发现相比于自回归模型，非自回归模型在预测目标文字个数（插入错误+删除错误）方面差距较小，但是替换错误显著的增加，我们认为这是由于单轮非自回归模型中条件独立假设导致的语义信息丢失。</p>
+<p>与此同时，目前非自回归模型主要停留在学术验证阶段，还没有工业大数据上的相关实验与结论。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="语音识别NAR模型-Paraformer/在2万小时工业数据上自回归与非自回归模型错误类型统计.jpeg" alt="在2万小时工业数据上自回归与非自回归模型错误类型统计"/></div><div class="image-meta"><span class="image-caption center">在2万小时工业数据上自回归与非自回归模型错误类型统计</span></div></div>
+
+<p>为了解决上述问题，我们设计了一种具有高识别率与计算效率的单轮非自回归模型Paraformer。</p>
+<p>针对第一个问题，我们采用一个预测器（Predictor）来预测文字个数并通过 Continuous integrate-and-fire (CIF) [4]机制来抽取文字对应的声学隐变量。</p>
+<p>针对第二个问题，受启发于机器翻译领域中的 Glancing language model（GLM）[5]，我们设计了一个基于 GLM 的 Sampler 模块来增强模型对上下文语义的建模。除此之外，我们还设计了一种生成负样本策略来引入 MWER[6] 区分性训练。</p>
+<p>具体模型结构如图3所示，由 Encoder、Predictor、Sampler、Decoder 与 Loss function 几部分组成。Encoder 与自回归模型保持一致，可以为 Self-attention、SAN-M 或者 Conformer 结构。Predictor 为2层 DNN 模型，预测目标文字个数以及抽取目标文字对应的声学向量。Sampler 为无可学习参数模块，依据输入的声学向量和目标向量，生产含有语义的特征向量。Decoder 结构与自回归模型类似，为双向建模（自回归为单向建模）。Loss function 部分，除了交叉熵（CE）与 MWER 区分性优化目标，还包括了 Predictor 优化目标 MAE。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="./语音识别NAR模型-Paraformer/Paraformer模型结构图.png" alt="Paraformer模型结构图"/></div><div class="image-meta"><span class="image-caption center">Paraformer模型结构图</span></div></div>
+
+<p>其核心点主要有：</p>
+<ul>
+<li><p>Predictor 模块：基于 CIF 的 Predictor 来预测语音中目标文字个数以及抽取目标文字对应的声学特征向量</p>
+</li>
+<li><p>Sampler：通过采样，将声学特征向量与目标文字向量变换成含有语义信息的特征向量，配合双向的 Decoder 来增强模型对于上下文的建模能力</p>
+</li>
+<li><p>基于负样本采样的 MWER 训练准则</p>
+</li>
+</ul>
+<h2 id="2-各模块的理解"><a href="#2-各模块的理解" class="headerlink" title="2. 各模块的理解"></a>2. 各模块的理解</h2><h3 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h3><p>假设输入(X,Y), X表示语音，有T帧， Y表示文字，有N个文字。Encoder把输入X映射到隐藏表示H。 然后Predictor把隐藏表示映射为预测的文字个数N’和对应的声学向量embedding E<sub>a</sub>。输入E<sub>a</sub>和H给Decoder，产生最后的预测Y’，这是第一次解码，主要为了得到预测的结果并通过Sampler模块来采样，这时梯度并不回传（其实代码里是可选择的）。Sampler采样E<sub>a</sub> 和目标E<sub>c</sub>来产生E<sub>s</sub>，需要依据Y’和Y之间的距离。Decoder最后使用E<sub>s</sub>和H来预测最终的结果Y’’，这时才会回传梯度。最后，Y’’用来采样负例并计算MWER, 通过目标长度N和预测的N’来计算MAE。</p>
+<p>推断时，Sampler模块可以去掉，只使用和H来预测Y’，从而推理时并没有增加而外计算量。</p>
+<h3 id="Predictor-模块"><a href="#Predictor-模块" class="headerlink" title="Predictor 模块"></a>Predictor 模块</h3><p>非自回归模型的一个核心问题是如何预测模型中 Decoder 需要输出的文字数目，以及如何为 Decoder 提供输入特征向量。之前关于非自回归的工作主要是采用 CTC 来进行预测字符数目以及输入向量。Paraformer 里我们采用基于2层 DNN 的 Predictor 网络。输出为0～1之间的浮点数，输出值累加来预测目标文字个数，通过 CIF 机制抽取声学特征向量（图4为CIF过程示例）。训练过程中采用 MAE 来监督 Predictor 模块学习。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="./语音识别NAR模型-Paraformer/CIF过程示例.png" alt="CIF过程示例"/></div><div class="image-meta"><span class="image-caption center">CIF过程示例</span></div></div>
+
+<p>详细的CIF理解参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zwr198/article/details/127938332">https://blog.csdn.net/zwr198/article/details/127938332</a></p>
+<h3 id="Sampler模块"><a href="#Sampler模块" class="headerlink" title="Sampler模块"></a>Sampler模块</h3><p>非自回归模型的另一个核心问题是如何增强模型对上下文建模能力，现有的通用的单轮自回归模型 (vanilla-NAR) 为了高效计算效率，模型中 decoder 去除了显式的 Dependency 建模，从而在处理同音替换错误的能力会弱很多。从图2也可以看出 vanilla-NAR 相比于自回归（AR）的端到端语音识别系统在替换错误（substitution）上会明显增多。针对这个问题，Paraformer 借鉴来机器翻译里 GLM 工作，通过 Samper 模块来增强 Decoder 对于预测目标文字内在的 Dependency 的建模。Sampler 模块在解码时不工作，因此不会影响模型推理效率。数学模型如下：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="./语音识别NAR模型-Paraformer/GLM.png" alt="glm"/></div><div class="image-meta"><span class="image-caption center">glm</span></div></div>
+
+<p>GLM采样的原理理解来自论文字节跳动Glancing Transformer，详细解读参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/RuKc9gS26-kCUpifQ-xNYg">https://mp.weixin.qq.com/s/RuKc9gS26-kCUpifQ-xNYg</a></p>
+<p>参考的资料：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/649558283">https://zhuanlan.zhihu.com/p/649558283</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/89209220">https://zhuanlan.zhihu.com/p/89209220</a></p>
+
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2022/09/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">机器学习中的评价指标</a></div></section></div>
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

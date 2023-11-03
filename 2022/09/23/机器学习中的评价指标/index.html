@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 6.3.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>机器学习中的评价指标 - 进化</title>
+
+  
+    <meta name="description" content="理解准确率，召回率，F1值，ROC，PRC曲线，以及多分类相关评价指标。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习中的评价指标">
+<meta property="og:url" content="http://yoursite.com/2022/09/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/index.html">
+<meta property="og:site_name" content="进化">
+<meta property="og:description" content="理解准确率，召回率，F1值，ROC，PRC曲线，以及多分类相关评价指标。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-23T06:53:30.000Z">
+<meta property="article:modified_time" content="2023-11-03T06:11:49.337Z">
+<meta property="article:author" content="Chenbenkang">
+<meta property="article:tag" content="ml">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta name="keywords" content="ml">
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='editorial'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="title" href="/"><div class="main" ff="title">进化</div></a></div>
+
+<nav class="menu dis-select"></nav>
+</header>
+
+
+<div class="widgets"></div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/2022/09/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">机器学习中的评价指标</a></div></div>
+
+<article class='md-text content editorial'>
+<h1 class="article-title"><span>机器学习中的评价指标</span></h1>
+<h1 id="机器学习中的评价指标"><a href="#机器学习中的评价指标" class="headerlink" title="机器学习中的评价指标"></a>机器学习中的评价指标</h1><h2 id="1-分类评价指标"><a href="#1-分类评价指标" class="headerlink" title="1 .分类评价指标"></a>1 .分类评价指标</h2><p>先通过一个二分类的例子来理解准确率、召回率、F1值如何计算的。</p>
+<h3 id="1-1-二分类任务"><a href="#1-1-二分类任务" class="headerlink" title="1.1 二分类任务"></a>1.1 二分类任务</h3><p>例如，一个二分类任务，其中标签0表示<mark style="color:red;">positive</mark>，标签1表示<mark style="color:red;">negative</mark>。现有如下所示的标签值与预测值：</p>
+<pre class="language-python"><code class="lang-python">y_true = [1, 0, 0, 0, 1, 1, 0, 0, 0, 0]
+<strong>y_pred = [1, 1, 1, 1, 1, 0, 0, 0, 0, 1]
+</strong></code></pre>
+
+<h4 id="1-1-1-混淆矩阵"><a href="#1-1-1-混淆矩阵" class="headerlink" title="1.1.1 混淆矩阵"></a>1.1.1 混淆矩阵</h4><table><thead><tr><th>真实\预测</th><th>P</th><th>N</th><th data-hidden></th></tr></thead><tbody><tr><td>P </td><td>TP</td><td>FN</td><td></td></tr><tr><td>N</td><td>FP</td><td>TN</td><td></td></tr></tbody></table>
+
+<p>二分类的混淆矩阵的格式如上表，如何理解这个混淆矩阵呢？首先横着看，然后纵向看，例如TP，横向表示真实的正样本，纵向表示预测的正样本，因此TP就表示将正样本预测为正样本，即预测正确。因此有：</p>
+<ul>
+<li>True Positive(TP)：表示将正样本预测为正样本，也就是正确的正样本，即预测正确。</li>
+<li>False Negative(FN): 表示将正样本预测为负样本，也就是错误的负样本，即预测错误。</li>
+<li>False Positive(FP): 表示将负样本预测为正样本，也就是错误的负样本，即预测错误。</li>
+<li>True Negative(TN): 表示将负样本预测为负样本，也就是正确的负样本，即预测正确。</li>
+</ul>
+<p>因此上述的二分类的例子的混淆矩阵如下：</p>
+<table><thead><tr><th>真实\预测</th><th>0</th><th>1</th><th data-hidden></th></tr></thead><tbody><tr><td>0 </td><td>3</td><td>4</td><td></td></tr><tr><td>1</td><td>1</td><td>2</td><td></td></tr></tbody></table>
+
+<h4 id="1-1-2-指标定义"><a href="#1-1-2-指标定义" class="headerlink" title="1.1.2 指标定义"></a>1.1.2 指标定义</h4><p>$$<br>accracury &#x3D; \frac {TP+FP} {TP+FN+FP+TN}<br>$$</p>
+<p>$$<br>precision &#x3D; \frac {TP}{TP+FP}<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{TP}{TP+FN}<br>$$</p>
+<p>$$<br>F -score &#x3D; (1 + \beta^2)\frac{precision \dot recall}{\beta^2 \dot precision + recall}<br>$$</p>
+<p>当$$F-score$$中 $$\beta &#x3D; 1$$时为 $$F_1$$值， $$F_1$$值是最常用的。</p>
+<p>准确率是最好理解的，所有预测对的值除以样本的总数。精确率是指预测对的正样本在整个预测为正样本中的比例，召回率指的是预测对的正样本占整个真实正样本的中的比例。因此，召回率越高说明模型寻找正样本的能力越强， $$F_{score}$$是精确率与召回率的调和平均。通常在具体的实施中，不会明确哪一个样本是正样本，哪一个样本是负样本，对于某个类别都可以计算其各项指标，但是准确率只有一个。</p>
+<p>上述例子中准确率为：</p>
+<p>$$<br>accuracy &#x3D; \frac{3+2}{3+4+1+2} &#x3D;0.5<br>$$</p>
+<p>对于样本0：</p>
+<p>$$<br>precision &#x3D; \frac{3}{3+1}&#x3D;0.75<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{3}{3+4} &#x3D; 0.43<br>$$</p>
+<p>$$<br>F_1 &#x3D; \frac{2 \times 0.75\times0.43}{0.75+0.43}&#x3D;0.55<br>$$</p>
+<p>对于样本1来说：</p>
+<p>$$<br>precision &#x3D; \frac{2}{2+4}&#x3D;0.33<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{2}{2+1} &#x3D; 0.67<br>$$</p>
+<p>$$<br>F_1 &#x3D; \frac{2\times0.33\times0.67}{0.33+0.67}&#x3D;0.44<br>$$</p>
+<p>如何衡量整体的精确率、召回率、 $$F_1$$值呢，常用的方法有两种：算术平均与加权平均。</p>
+<ol>
+<li>算术平均</li>
+</ol>
+<p>所谓算术平均就是等权重的对各个类别的评价指标将进行累加求和，上述列子中，各指标为：</p>
+<p>$$<br>precision &#x3D; \frac{1}{2}\times0.75+\frac{1}{2}\times0.33&#x3D;0.54<br>$$</p>
+<p>$$<br>recall&#x3D; \frac{1}{2}\times0.43+\frac{1}{2}\times0.67&#x3D;0.55<br>$$</p>
+<p>$$<br>F_1&#x3D; \frac{1}{2}\times0.55+\frac{1}{2}\times0.44&#x3D;0.49<br>$$</p>
+<ol start="2">
+<li>加权平均</li>
+</ol>
+<p>所谓加权平均就是以不同的权重对各类别的评价指标累加求和，常用的一个加权方式是某个类别的样本数占总样本数的比例，上述例子中，个指标为：</p>
+<p>$$<br>precision &#x3D; \frac{7}{10}\times0.75+\frac{3}{10}\times0.33&#x3D;0.62<br>$$</p>
+<p>$$<br>recall&#x3D; \frac{7}{10}\times0.43+\frac{3}{10}\times0.67&#x3D;0.50<br>$$</p>
+<p>$$<br>F_1&#x3D; \frac{7}{10}\times0.55+\frac{3}{10}\times0.44&#x3D;0.52<br>$$</p>
+<h3 id="1-2-多分类任务"><a href="#1-2-多分类任务" class="headerlink" title="1.2 多分类任务"></a>1.2 多分类任务</h3><p>下面是三分类任务的真实值与预测值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]</span><br><span class="line">y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-1-混淆矩阵"><a href="#1-2-1-混淆矩阵" class="headerlink" title="1.2.1 混淆矩阵"></a>1.2.1 混淆矩阵</h4><p>根据上面的真实值与预测值，可以得到如下混淆矩阵：</p>
+<table>
+<thead>
+<tr>
+<th>真实\预测</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td><mark style="color:orange;">1</mark></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td><mark style="color:orange;">1</mark></td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td><mark style="color:orange;">2</mark></td>
+</tr>
+</tbody></table>
+<p>理解上述表格，先横着看再竖着看，例如第一行第一列，表示将标签0预测成0的个数，第一行第二列，表示将标签0预测成1的个数。这样理解，只有对角线上的才是预测正确的数量。</p>
+<h4 id="1-2-1-指标计算"><a href="#1-2-1-指标计算" class="headerlink" title="1.2.1 指标计算"></a>1.2.1 指标计算</h4><p>首先计算样本的准确率：</p>
+<p>$$<br>accuracy &#x3D; \frac{1+1+2}{1+1+1+2+1+0+2+0+2} &#x3D; 0.4<br>$$</p>
+<ul>
+<li>类别0&#x20;</li>
+</ul>
+<p>精确率是指在该类别预测正确的样本数占所有预测样本的比例，类别0的预测样本有1+2+2&#x3D;5，预测对的样本为1，则类别0的精确率为：</p>
+<p>$$<br>precision &#x3D; \frac{1}{1+2+2}&#x3D;0.2<br>$$</p>
+<p>召回率为，该类别预测正确的样本占真实样本中的比例，类别0的真实样本为1+1+1 &#x3D; 3，预测对的样本为1，则类别0的召回率为：</p>
+<p>$$<br>recall &#x3D; \frac{1}{1+1+1}&#x3D;0.33<br>$$</p>
+<p>因此其 $$F_1$$值为：</p>
+<p>$$<br>F_1 &#x3D; \frac{2 \times 0.2 \times 0.33}{0.2 + 0.33} &#x3D; 0.25<br>$$</p>
+<ul>
+<li>类别1</li>
+</ul>
+<p>$$<br>precision &#x3D; \frac{1}{1+1+0}&#x3D;0.5<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{1}{1+2+0}&#x3D;0.33<br>$$</p>
+<p>$$<br>F_1 &#x3D; \frac{2 \times 0.5 \times 0.33}{0.5 + 0.33} &#x3D; 0.40<br>$$</p>
+<ul>
+<li>类别2</li>
+</ul>
+<p>$$<br>precision &#x3D; \frac{2}{1+0+2}&#x3D;0.67<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{2}{2+0+2}&#x3D;0.50<br>$$</p>
+<p>$$<br>F_1 &#x3D; \frac{2 \times 0.67 \times 0.50}{0.67 + 0.50} &#x3D; 0.57<br>$$</p>
+<p>然后分别求加权后的指标：</p>
+<ul>
+<li>算术评价</li>
+</ul>
+<p>$$<br>precision &#x3D; \frac{1}{3}(0.2+0.5+0.67)&#x3D;0.46<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{1}{3}(0.33+0.33+0.50)&#x3D;0.39<br>$$</p>
+<p>$$<br>F_1 &#x3D; \frac{1}{3}(0.25+0.40+0.57) &#x3D; 0.41<br>$$</p>
+<ul>
+<li>加权平均</li>
+</ul>
+<p>$$<br>precision &#x3D; \frac{3}{10}\times0.2 + \frac{3}{10}\times0.5+ \frac{4}{10}\times0.67&#x3D;0.48<br>$$</p>
+<p>$$<br>recall &#x3D; \frac{3}{10}\times0.33 + \frac{3}{10}\times0.33+ \frac{4}{10}\times0.50&#x3D;0.40<br>$$</p>
+<p>$$<br>F_1 &#x3D; \frac{3}{10}\times0.25 + \frac{3}{10}\times0.40+ \frac{4}{10}\times0.57&#x3D;0.42<br>$$</p>
+<h3 id="1-3-实现"><a href="#1-3-实现" class="headerlink" title="1.3 实现"></a>1.3 实现</h3><p>基于sklearn很容易实现上述分类指标的统计：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line">y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>]</span><br><span class="line">y_pred = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">2</span>]</span><br><span class="line">report = metrics.classification_report(y_true, y_pred))</span><br><span class="line">confusion = metrics.confusion_matrix(y_true, y_pred)</span><br><span class="line"><span class="built_in">print</span>(report)</span><br><span class="line"><span class="built_in">print</span>(confusion )</span><br></pre></td></tr></table></figure>
+
+<p>输出为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">              precision    recall  f1-score   support</span><br><span class="line"></span><br><span class="line">           0       0.20      0.33      0.25         3</span><br><span class="line">           1       0.50      0.33      0.40         3</span><br><span class="line">           2       0.67      0.50      0.57         4</span><br><span class="line"></span><br><span class="line">    accuracy                           0.40        10</span><br><span class="line">   macro avg       0.46      0.39      0.41        10</span><br><span class="line">weighted avg       0.48      0.40      0.42        10</span><br><span class="line"></span><br><span class="line">[[1 1 1]</span><br><span class="line"> [2 1 0]</span><br><span class="line"> [2 0 2]]</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-PR，ROC曲线"><a href="#2-PR，ROC曲线" class="headerlink" title="2. PR，ROC曲线"></a>2. PR，ROC曲线</h2>
+
+
+<div class="article-footer reveal fs14"></div>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.19.0';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.19.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.css","js":"https://unpkg.com/swiper@8.4.5/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
