@@ -23,12 +23,12 @@
   <title>过滤器（Filter）与拦截器（Interceptor )区别 - 进化</title>
 
   
-    <meta name="description" content="过滤器（Filter）Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，简化操作；同时还可进行逻辑判断，如用户是否已经">
+    <meta name="description" content="过滤器（Filter） Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。 其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码， 简化操作；同时还可进行逻辑判断，如用户是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="过滤器（Filter）与拦截器（Interceptor )区别">
 <meta property="og:url" content="http://yoursite.com/2019/09/23/%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88Filter%EF%BC%89%E4%B8%8E%E6%8B%A6%E6%88%AA%E5%99%A8%EF%BC%88Interceptor-%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="进化">
-<meta property="og:description" content="过滤器（Filter）Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，简化操作；同时还可进行逻辑判断，如用户是否已经">
+<meta property="og:description" content="过滤器（Filter） Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。 其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码， 简化操作；同时还可进行逻辑判断，如用户是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-23T06:53:30.000Z">
 <meta property="article:modified_time" content="2023-11-03T05:58:47.761Z">
@@ -81,7 +81,7 @@
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/blog/" placeholder="文章搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
 
-<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">过滤器（Filter）与拦截器（Interceptor )区别</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88Filter%EF%BC%89"><span class="toc-text">过滤器（Filter）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%EF%BC%88Interceptor%EF%BC%89"><span class="toc-text">拦截器（Interceptor）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%EF%BC%88Interceptor%EF%BC%89%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88Filter%EF%BC%89%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">拦截器（Interceptor）和过滤器（Filter）的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%EF%BC%88Interceptor%EF%BC%89%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88Filter%EF%BC%89%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-text">拦截器（Interceptor）和过滤器（Filter）的执行顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%EF%BC%88Interceptor%EF%BC%89%E4%BD%BF%E7%94%A8"><span class="toc-text">拦截器（Interceptor）使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88Filter%EF%BC%89%E4%BD%BF%E7%94%A8"><span class="toc-text">过滤器（Filter）使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8%EF%BC%88Interceptor%EF%BC%89%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%88Filter%EF%BC%89%E7%9A%84%E4%B8%80%E4%BA%9B%E7%94%A8%E9%80%94"><span class="toc-text">拦截器（Interceptor）和过滤器（Filter）的一些用途</span></a></li></ol></div></div></widget>
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">过滤器（Filter）与拦截器（Interceptor )区别</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8filter"><span class="toc-text">过滤器（Filter）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8interceptor"><span class="toc-text">拦截器（Interceptor）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8interceptor%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8filter%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">拦截器（Interceptor）和过滤器（Filter）的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8interceptor%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8filter%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="toc-text">拦截器（Interceptor）和过滤器（Filter）的执行顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8interceptor%E4%BD%BF%E7%94%A8"><span class="toc-text">拦截器（Interceptor）使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%A6%E6%88%AA%E5%99%A8interceptor%E5%92%8C%E8%BF%87%E6%BB%A4%E5%99%A8filter%E7%9A%84%E4%B8%80%E4%BA%9B%E7%94%A8%E9%80%94"><span class="toc-text">拦截器（Interceptor）和过滤器（Filter）的一些用途</span></a></li></ol></div></div></widget>
 
 
 
@@ -101,107 +101,83 @@
 
 <article class='md-text content post'>
 <h1 class="article-title"><span>过滤器（Filter）与拦截器（Interceptor )区别</span></h1>
-<h2 id="过滤器（Filter）"><a href="#过滤器（Filter）" class="headerlink" title="过滤器（Filter）"></a>过滤器（Filter）</h2><p>Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。<br>其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码，<br>简化操作；同时还可进行逻辑判断，如用户是否已经登陆、有没有权限访问该页面等等工作。它是随你的web应用启动而启动的，只初始化一次，以后就可以拦截相关<br>请求，只有当你的web应用停止或重新部署的时候才销毁。</p>
-<p>Filter可以认为是Servlet的一种“加强版”，它主要用于对用户请求进行预处理，也可以对HttpServletResponse进行后处理，是个典型的处理链。<br>Filter也可以对用户请求生成响应，这一点与Servlet相同，但实际上很少会使用Filter向用户请求生成响应。使用Filter完整的流程是：<br>Filter对用户请求进行预处理，接着将请求交给Servlet进行处理并生成响应，最后Filter再对服务器响应进行后处理。</p>
-<p><strong>Filter有如下几个用处</strong></p>
+<h2 id="过滤器filter">过滤器（Filter）</h2>
+<p>Servlet中的过滤器Filter是实现了javax.servlet.Filter接口的服务器端程序，主要的用途是设置字符集、控制权限、控制转向、做一些业务逻辑判断等。 其工作原理是，只要你在web.xml文件配置好要拦截的客户端请求，它都会帮你拦截到请求，此时你就可以对请求或响应(Request、Response)统一设置编码， 简化操作；同时还可进行逻辑判断，如用户是否已经登陆、有没有权限访问该页面等等工作。它是随你的web应用启动而启动的，只初始化一次，以后就可以拦截相关 请求，只有当你的web应用停止或重新部署的时候才销毁。</p>
+<p>Filter可以认为是Servlet的一种“加强版”，它主要用于对用户请求进行预处理，也可以对HttpServletResponse进行后处理，是个典型的处理链。 Filter也可以对用户请求生成响应，这一点与Servlet相同，但实际上很少会使用Filter向用户请求生成响应。使用Filter完整的流程是： Filter对用户请求进行预处理，接着将请求交给Servlet进行处理并生成响应，最后Filter再对服务器响应进行后处理。</p>
+<p><strong>Filter有如下几个用处</strong> * 在HttpServletRequest到达Servlet之前，拦截客户的HttpServletRequest。 * 根据需要检查HttpServletRequest，也可以修改HttpServletRequest头和数据。 * 在HttpServletResponse到达客户端之前，拦截HttpServletResponse。 * 根据需要检查HttpServletResponse，也可以修改HttpServletResponse头和数据。</p>
+<p><em>Filter有如下几个种类。</em> * 用户授权的Filter：Filter负责检查用户请求，根据请求过滤用户非法请求。 * 日志Filter：详细记录某些特殊的用户请求。 * 负责解码的Filter:包括对非标准编码的请求解码。 * 能改变XML内容的XSLT Filter等。 * Filter可以负责拦截多个请求或响应；一个请求或响应也可以被多个Filter拦截。</p>
+<p><em>创建一个Filter只需两个步骤</em> * 创建Filter处理类。 * 配置Filter。</p>
+<p><em>创建Filter必须实现javax.servlet.Filter接口，在该接口中定义了如下三个方法。</em> * void init(FilterConfig config):用于完成Filter的初始化。 * void destory():用于Filter销毁前，完成某些资源的回收。 * void doFilter(ServletRequest request,ServletResponse response,FilterChain chain):实现过滤功能，该方法就是对每个请求及响应增加的 额外处理。该方法可以实现对用户请求进行预处理(ServletRequest request)，也可实现对服务器响应进行后处理(ServletResponse response)—它们的 分界线为是否调用了chain.doFilter(),执行该方法之前，即对用户请求进行预处理；执行该方法之后，即对服务器响应进行后处理。</p>
+<h2 id="拦截器interceptor">拦截器（Interceptor）</h2>
+<p>拦截器是在面向切面编程中应用的，就是在你的service或者一个方法前调用一个方法，或者在方法后调用一个方法。是基于JAVA的反射机制。</p>
+<p>拦截器，在AOP(Aspect-Oriented Programming)中用于在某个方法或字段被访问之前，进行拦截，然后在之前或之后加入某些操作。拦截是AOP的一种实现策略。 在WebWork的中文文档的解释为—拦截器是动态拦截Action调用的对象。它提供了一种机制使开发者可以定义在一个Action执行的前后执行的代码， 也可以在一个Action执行前阻止其执行。同时也提供了一种可以提取Action中可重用的部分的方式。</p>
+<p>拦截器将Action共用的行为独立出来，在Action执行前后执行。这也就是我们所说的AOP，它是分散关注的编程方法，它将通用需求功能从不相关类之中分离出来； 同时，能够共享一个行为，一旦行为发生变化，不必修改很多类，只要修改这个行为就可以。拦截器将很多功能从我们的Action中独立出来， 大量减少了我们Action的代码，独立出来的行为就有很好的重用性。</p>
+<p>当你提交对Action(默认是.action结尾的url)的请求时，ServletDispatcher会根据你的请求，去调度并执行相应的Action。在Action执行之前， 调用被Interceptor截取，Interceptor在Action执行前后执行。</p>
+<p>SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor 来实现的。在SpringMVC 中定义一个Interceptor 非常简单，主要有两种方式， 第一种方式是要定义的Interceptor类要实现了Spring 的HandlerInterceptor 接口，或者是这个类继承实现了HandlerInterceptor 接口的类， 比如Spring 已经提供的实现了HandlerInterceptor 接口的抽象类HandlerInterceptorAdapter ； 第二种方式是实现Spring的WebRequestInterceptor接口，或者是继承实现了WebRequestInterceptor的类。</p>
 <ul>
-<li>在HttpServletRequest到达Servlet之前，拦截客户的HttpServletRequest。</li>
-<li>根据需要检查HttpServletRequest，也可以修改HttpServletRequest头和数据。</li>
-<li>在HttpServletResponse到达客户端之前，拦截HttpServletResponse。</li>
-<li>根据需要检查HttpServletResponse，也可以修改HttpServletResponse头和数据。</li>
+<li>preHandle (HttpServletRequest request, HttpServletResponse response, Object handle) 方法，顾名思义，该方法将在请求处理之前进行 调用。SpringMVC 中的Interceptor 是链式的调用的，在一个应用中或者说是在一个请求中可以同时存在多个Interceptor 。每个Interceptor 的调用会 依据它的声明顺序依次执行，而且最先执行的都是Interceptor 中的preHandle 方法，所以可以在这个方法中进行一些前置初始化操作或者是对当前请求的一个 预处理，也可以在这个方法中进行一些判断来决定请求是否要继续进行下去。该方法的返回值是布尔值Boolean类型的，当它返回为false 时，表示请求结束， 后续的Interceptor 和Controller 都不会再执行；当返回值为true 时就会继续调用下一个Interceptor 的preHandle 方法，如果已经是最后一个 Interceptor 的时候就会是调用当前请求的Controller 方法。</li>
+<li>postHandle (HttpServletRequest request, HttpServletResponse response, Object handle, ModelAndView modelAndView) 方法， 由preHandle 方法的解释我们知道这个方法包括后面要说到的afterCompletion 方法都只能是在当前所属的Interceptor 的preHandle 方法的返回值为true 时才能被调用。postHandle 方法，顾名思义就是在当前请求进行处理之后，也就是Controller 方法调用之后执行，但是它会在DispatcherServlet 进行 视图返回渲染之前被调用，所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。postHandle 方法被调用的方向跟preHandle 是相反的，也就是说先声明的Interceptor 的postHandle 方法反而会后执行。</li>
+<li>afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handle, Exception ex) 方法， 该方法也是需要当前对应的Interceptor 的preHandle 方法的返回值为true 时才会执行。顾名思义，该方法将在整个请求结束之后， 也就是在DispatcherServlet 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。</li>
 </ul>
-<p><em>Filter有如下几个种类。</em></p>
-<ul>
-<li>用户授权的Filter：Filter负责检查用户请求，根据请求过滤用户非法请求。</li>
-<li>日志Filter：详细记录某些特殊的用户请求。</li>
-<li>负责解码的Filter:包括对非标准编码的请求解码。 </li>
-<li>能改变XML内容的XSLT Filter等。</li>
-<li>Filter可以负责拦截多个请求或响应；一个请求或响应也可以被多个Filter拦截。</li>
-</ul>
-<p><em>创建一个Filter只需两个步骤</em></p>
-<ul>
-<li>创建Filter处理类。</li>
-<li>配置Filter。</li>
-</ul>
-<p><em>创建Filter必须实现javax.servlet.Filter接口，在该接口中定义了如下三个方法。</em></p>
-<ul>
-<li>void init(FilterConfig config):用于完成Filter的初始化。</li>
-<li>void destory():用于Filter销毁前，完成某些资源的回收。</li>
-<li>void doFilter(ServletRequest request,ServletResponse response,FilterChain chain):实现过滤功能，该方法就是对每个请求及响应增加的<br>额外处理。该方法可以实现对用户请求进行预处理(ServletRequest request)，也可实现对服务器响应进行后处理(ServletResponse response)—它们的<br>分界线为是否调用了chain.doFilter(),执行该方法之前，即对用户请求进行预处理；执行该方法之后，即对服务器响应进行后处理。</li>
-</ul>
-<h2 id="拦截器（Interceptor）"><a href="#拦截器（Interceptor）" class="headerlink" title="拦截器（Interceptor）"></a>拦截器（Interceptor）</h2><p>拦截器是在面向切面编程中应用的，就是在你的service或者一个方法前调用一个方法，或者在方法后调用一个方法。是基于JAVA的反射机制。</p>
-<p>拦截器，在AOP(Aspect-Oriented Programming)中用于在某个方法或字段被访问之前，进行拦截，然后在之前或之后加入某些操作。拦截是AOP的一种实现策略。<br>在WebWork的中文文档的解释为—拦截器是动态拦截Action调用的对象。它提供了一种机制使开发者可以定义在一个Action执行的前后执行的代码，<br>也可以在一个Action执行前阻止其执行。同时也提供了一种可以提取Action中可重用的部分的方式。</p>
-<p>拦截器将Action共用的行为独立出来，在Action执行前后执行。这也就是我们所说的AOP，它是分散关注的编程方法，它将通用需求功能从不相关类之中分离出来；<br>同时，能够共享一个行为，一旦行为发生变化，不必修改很多类，只要修改这个行为就可以。拦截器将很多功能从我们的Action中独立出来，<br>大量减少了我们Action的代码，独立出来的行为就有很好的重用性。</p>
-<p>当你提交对Action(默认是.action结尾的url)的请求时，ServletDispatcher会根据你的请求，去调度并执行相应的Action。在Action执行之前，<br>调用被Interceptor截取，Interceptor在Action执行前后执行。</p>
-<p>SpringMVC 中的Interceptor 拦截请求是通过HandlerInterceptor 来实现的。在SpringMVC 中定义一个Interceptor 非常简单，主要有两种方式，<br>第一种方式是要定义的Interceptor类要实现了Spring 的HandlerInterceptor 接口，或者是这个类继承实现了HandlerInterceptor 接口的类，<br>比如Spring 已经提供的实现了HandlerInterceptor 接口的抽象类HandlerInterceptorAdapter ；<br>第二种方式是实现Spring的WebRequestInterceptor接口，或者是继承实现了WebRequestInterceptor的类。</p>
-<ul>
-<li>preHandle (HttpServletRequest request, HttpServletResponse response, Object handle) 方法，顾名思义，该方法将在请求处理之前进行<br>调用。SpringMVC 中的Interceptor 是链式的调用的，在一个应用中或者说是在一个请求中可以同时存在多个Interceptor 。每个Interceptor 的调用会<br>依据它的声明顺序依次执行，而且最先执行的都是Interceptor 中的preHandle 方法，所以可以在这个方法中进行一些前置初始化操作或者是对当前请求的一个<br>预处理，也可以在这个方法中进行一些判断来决定请求是否要继续进行下去。该方法的返回值是布尔值Boolean类型的，当它返回为false 时，表示请求结束，<br>后续的Interceptor 和Controller 都不会再执行；当返回值为true 时就会继续调用下一个Interceptor 的preHandle 方法，如果已经是最后一个<br>Interceptor 的时候就会是调用当前请求的Controller 方法。</li>
-<li>postHandle (HttpServletRequest request, HttpServletResponse response, Object handle, ModelAndView modelAndView) 方法，<br>由preHandle 方法的解释我们知道这个方法包括后面要说到的afterCompletion 方法都只能是在当前所属的Interceptor 的preHandle 方法的返回值为true<br>时才能被调用。postHandle 方法，顾名思义就是在当前请求进行处理之后，也就是Controller 方法调用之后执行，但是它会在DispatcherServlet 进行<br>视图返回渲染之前被调用，所以我们可以在这个方法中对Controller 处理之后的ModelAndView 对象进行操作。postHandle 方法被调用的方向跟preHandle<br>是相反的，也就是说先声明的Interceptor 的postHandle 方法反而会后执行。</li>
-<li>afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handle, Exception ex) 方法，<br>该方法也是需要当前对应的Interceptor 的preHandle 方法的返回值为true 时才会执行。顾名思义，该方法将在整个请求结束之后，<br>也就是在DispatcherServlet 渲染了对应的视图之后执行。这个方法的主要作用是用于进行资源清理工作的。</li>
-</ul>
-<h2 id="拦截器（Interceptor）和过滤器（Filter）的区别"><a href="#拦截器（Interceptor）和过滤器（Filter）的区别" class="headerlink" title="拦截器（Interceptor）和过滤器（Filter）的区别"></a>拦截器（Interceptor）和过滤器（Filter）的区别</h2><p>Spring的Interceptor(拦截器)与Servlet的Filter有相似之处，比如二者都是AOP编程思想的体现，都能实现权限检查、日志记录等。不同的是：</p>
+<h2 id="拦截器interceptor和过滤器filter的区别">拦截器（Interceptor）和过滤器（Filter）的区别</h2>
+<p>Spring的Interceptor(拦截器)与Servlet的Filter有相似之处，比如二者都是AOP编程思想的体现，都能实现权限检查、日志记录等。不同的是：</p>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>Filter</th>
 <th>Interceptor</th>
 <th>Summary</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td>Filter 接口定义在 javax.servlet 包中</td>
 <td>接口 HandlerInterceptor 定义在org.springframework.web.servlet 包中</td>
 <td></td>
 </tr>
-<tr>
+<tr class="even">
 <td>Filter 定义在 web.xml 中</td>
 <td></td>
 <td></td>
 </tr>
-<tr>
-<td>Filter在只在 Servlet 前后起作用。Filters 通常将 请求和响应（request&#x2F;response） 当做黑盒子，Filter 通常不考虑servlet 的实现。</td>
+<tr class="odd">
+<td>Filter在只在 Servlet 前后起作用。Filters 通常将 请求和响应（request/response） 当做黑盒子，Filter 通常不考虑servlet 的实现。</td>
 <td>拦截器能够深入到方法前后、异常抛出前后等，因此拦截器的使用具有更大的弹性。允许用户介入（hook into）请求的生命周期，在请求过程中获取信息，Interceptor 通常和请求更加耦合。</td>
 <td>优先使用拦截器</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Filter 是 Servlet 规范规定的。</td>
 <td>而拦截器既可以用于Web程序，也可以用于Application、Swing程序中。</td>
 <td>使用范围不同</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Filter 是在 Servlet 规范中定义的，是 Servlet 容器支持的</td>
 <td>而拦截器是在 Spring容器内的，是Spring框架支持的。</td>
 <td>规范不同</td>
 </tr>
-<tr>
+<tr class="even">
 <td>Filter 不能够使用 Spring 容器资源</td>
 <td>拦截器是一个Spring的组件，归Spring管理，配置在Spring文件中，因此能使用Spring里的任何资源、对象，例如 Service对象、数据源、事务管理等，通过IoC注入到拦截器即可</td>
 <td>spring中使用Interceptor</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>Filter 是被 Server(like Tomcat) 调用</td>
 <td>Interceptor 是被 Spring 调用</td>
 <td>Filter总优先于Interceptor执行</td>
 </tr>
-</tbody></table>
-<h2 id="拦截器（Interceptor）和过滤器（Filter）的执行顺序"><a href="#拦截器（Interceptor）和过滤器（Filter）的执行顺序" class="headerlink" title="拦截器（Interceptor）和过滤器（Filter）的执行顺序"></a>拦截器（Interceptor）和过滤器（Filter）的执行顺序</h2><p><strong>过滤前-拦截前-Action处理-拦截后-过滤后</strong></p>
-<h2 id="拦截器（Interceptor）使用"><a href="#拦截器（Interceptor）使用" class="headerlink" title="拦截器（Interceptor）使用"></a>拦截器（Interceptor）使用</h2><p>interceptor 的执行顺序大致为：</p>
+</tbody>
+</table>
+<h2 id="拦截器interceptor和过滤器filter的执行顺序">拦截器（Interceptor）和过滤器（Filter）的执行顺序</h2>
+<p><strong>过滤前-拦截前-Action处理-拦截后-过滤后</strong></p>
+<h2 id="拦截器interceptor使用">拦截器（Interceptor）使用</h2>
+<p>interceptor 的执行顺序大致为： * 请求到达 DispatcherServlet. * DispatcherServlet 发送至 Interceptor ，执行 preHandle. * 请求达到 Controller. * 请求结束后，postHandle 执行. Spring 中主要通过 HandlerInterceptor 接口来实现请求的拦截，实现 HandlerInterceptor 接口需要实现下面三个方法： * preHandle() – 在handler执行之前，返回 boolean 值，true 表示继续执行，false 为停止执行并返回。 * postHandle() – 在handler执行之后, 可以在返回之前对返回的结果进行修改 * afterCompletion() – 在请求完全结束后调用，可以用来统计请求耗时等等 统计请求耗时： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExecuteTimeInterceptor</span> <span class="keyword">extends</span> <span class="title class_">HandlerInterceptorAdapter</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getLogger(ExecuteTimeInterceptor.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//before the actual handler will be executed</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request,</span></span><br><span class="line"><span class="params">        HttpServletResponse response, Object handler)</span></span><br><span class="line">        <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        request.setAttribute(<span class="string">&quot;startTime&quot;</span>, startTime);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//after the handler is executed</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postHandle</span><span class="params">(</span></span><br><span class="line"><span class="params">        HttpServletRequest request, HttpServletResponse response,</span></span><br><span class="line"><span class="params">        Object handler, ModelAndView modelAndView)</span></span><br><span class="line">        <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> (Long)request.getAttribute(<span class="string">&quot;startTime&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">executeTime</span> <span class="operator">=</span> endTime - startTime;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//modified the exisitng modelAndView</span></span><br><span class="line">        modelAndView.addObject(<span class="string">&quot;executeTime&quot;</span>,executeTime);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//log it</span></span><br><span class="line">        <span class="keyword">if</span>(logger.isDebugEnabled())&#123;</span><br><span class="line">           logger.debug(<span class="string">&quot;[&quot;</span> + handler + <span class="string">&quot;] executeTime : &quot;</span> + executeTime + <span class="string">&quot;ms&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> ## 过滤器（Filter）使用 Servlet 的 Filter 接口需要实现如下方法： * void init(FilterConfig paramFilterConfig) – 当容器初始化 Filter 时调用，该方法在 Filter 的生命周期只会被调用一次， 一般在该方法中初始化一些资源，FilterConfig 是容器提供给 Filter 的初始化参数，在该方法中可以抛出 ServletException 。 init 方法必须执行成功，否则 Filter 可能不起作用，出现以下两种情况时，web 容器中 Filter 可能无效： 1）抛出 ServletException 2） 超过 web 容器定义的执行时间。 * doFilter(ServletRequest paramServletRequest, ServletResponse paramServletResponse, FilterChain paramFilterChain) – Web 容器每一次请求都会调用该方法。该方法将容器的请求和响应作为参数传递进来， FilterChain 用来调用下一个 Filter。 * void destroy() – 当容器销毁 Filter 实例时调用该方法，可以在方法中销毁资源，该方法在 Filter 的生命周期只会被调用一次。 FrequencyLimitFilter com.company.filter.FrequencyLimitFilter FrequencyLimitFilter /login/*</p>
+<h2 id="拦截器interceptor和过滤器filter的一些用途">拦截器（Interceptor）和过滤器（Filter）的一些用途</h2>
 <ul>
-<li>请求到达 DispatcherServlet.</li>
-<li>DispatcherServlet 发送至 Interceptor ，执行 preHandle.</li>
-<li>请求达到 Controller.</li>
-<li>请求结束后，postHandle 执行.<br>Spring 中主要通过 HandlerInterceptor 接口来实现请求的拦截，实现 HandlerInterceptor 接口需要实现下面三个方法：</li>
-<li>preHandle() – 在handler执行之前，返回 boolean 值，true 表示继续执行，false 为停止执行并返回。</li>
-<li>postHandle() – 在handler执行之后, 可以在返回之前对返回的结果进行修改</li>
-<li>afterCompletion() – 在请求完全结束后调用，可以用来统计请求耗时等等<br>统计请求耗时：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExecuteTimeInterceptor</span> <span class="keyword">extends</span> <span class="title class_">HandlerInterceptorAdapter</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> Logger.getLogger(ExecuteTimeInterceptor.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//before the actual handler will be executed</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request,</span></span><br><span class="line"><span class="params">        HttpServletResponse response, Object handler)</span></span><br><span class="line">        <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">        request.setAttribute(<span class="string">&quot;startTime&quot;</span>, startTime);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//after the handler is executed</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">postHandle</span><span class="params">(</span></span><br><span class="line"><span class="params">        HttpServletRequest request, HttpServletResponse response,</span></span><br><span class="line"><span class="params">        Object handler, ModelAndView modelAndView)</span></span><br><span class="line">        <span class="keyword">throws</span> Exception &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> (Long)request.getAttribute(<span class="string">&quot;startTime&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        <span class="type">long</span> <span class="variable">executeTime</span> <span class="operator">=</span> endTime - startTime;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//modified the exisitng modelAndView</span></span><br><span class="line">        modelAndView.addObject(<span class="string">&quot;executeTime&quot;</span>,executeTime);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//log it</span></span><br><span class="line">        <span class="keyword">if</span>(logger.isDebugEnabled())&#123;</span><br><span class="line">           logger.debug(<span class="string">&quot;[&quot;</span> + handler + <span class="string">&quot;] executeTime : &quot;</span> + executeTime + <span class="string">&quot;ms&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="过滤器（Filter）使用"><a href="#过滤器（Filter）使用" class="headerlink" title="过滤器（Filter）使用"></a>过滤器（Filter）使用</h2><p>Servlet 的 Filter 接口需要实现如下方法：</p>
-<ul>
-<li>void init(FilterConfig paramFilterConfig) – 当容器初始化 Filter 时调用，该方法在 Filter 的生命周期只会被调用一次，<br>一般在该方法中初始化一些资源，FilterConfig 是容器提供给 Filter 的初始化参数，在该方法中可以抛出 ServletException 。<br>init 方法必须执行成功，否则 Filter 可能不起作用，出现以下两种情况时，web 容器中 Filter 可能无效： 1）抛出 ServletException 2）<br>超过 web 容器定义的执行时间。</li>
-<li>doFilter(ServletRequest paramServletRequest, ServletResponse paramServletResponse, FilterChain paramFilterChain) – Web<br>容器每一次请求都会调用该方法。该方法将容器的请求和响应作为参数传递进来， FilterChain 用来调用下一个 Filter。</li>
-<li>void destroy() – 当容器销毁 Filter 实例时调用该方法，可以在方法中销毁资源，该方法在 Filter 的生命周期只会被调用一次。<br>FrequencyLimitFilter com.company.filter.FrequencyLimitFilter FrequencyLimitFilter &#x2F;login&#x2F;*</li>
-</ul>
-<h2 id="拦截器（Interceptor）和过滤器（Filter）的一些用途"><a href="#拦截器（Interceptor）和过滤器（Filter）的一些用途" class="headerlink" title="拦截器（Interceptor）和过滤器（Filter）的一些用途"></a>拦截器（Interceptor）和过滤器（Filter）的一些用途</h2><ul>
 <li>Authentication Filters</li>
 <li>Logging and Auditing Filters</li>
 <li>Image conversion Filters</li>
@@ -209,24 +185,11 @@
 <li>Encryption Filters</li>
 <li>Tokenizing Filters</li>
 <li>Filters that trigger resource access events</li>
-<li>XSL&#x2F;T filters</li>
+<li>XSL/T filters</li>
 <li>Mime-type chain Filter</li>
 </ul>
-<p>Request Filters 可以:</p>
-<ul>
-<li>执行安全检查 perform security checks</li>
-<li>格式化请求头和主体 reformat request headers or bodies</li>
-<li>审查或者记录日志 audit or log requests</li>
-<li>根据请求内容授权或者限制用户访问 Authentication-Blocking requests based on user identity.</li>
-<li>根据请求频率限制用户访问</li>
-</ul>
-<p>Response Filters 可以:</p>
-<ul>
-<li>压缩响应内容,比如让下载的内容更小 Compress the response stream</li>
-<li>追加或者修改响应 append or alter the response stream</li>
-<li>创建或者整体修改响应 create a different response altogether</li>
-<li>根据地方不同修改响应内容 Localization-Targeting the request and response to a particular locale.</li>
-</ul>
+<p>Request Filters 可以: * 执行安全检查 perform security checks * 格式化请求头和主体 reformat request headers or bodies * 审查或者记录日志 audit or log requests * 根据请求内容授权或者限制用户访问 Authentication-Blocking requests based on user identity. * 根据请求频率限制用户访问</p>
+<p>Response Filters 可以: * 压缩响应内容,比如让下载的内容更小 Compress the response stream * 追加或者修改响应 append or alter the response stream * 创建或者整体修改响应 create a different response altogether * 根据地方不同修改响应内容 Localization-Targeting the request and response to a particular locale.</p>
 
 
 
@@ -245,7 +208,7 @@
 
 
       
-<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <a href="/">@anonymity</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer reveal fs12"><hr><div class="text"><p>本站由 <span class="citation" data-cites="anonymity">[@anonymity]</span>(/) 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。 本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 
       <div class='float-panel mobile-only blur' style='display:none'>
